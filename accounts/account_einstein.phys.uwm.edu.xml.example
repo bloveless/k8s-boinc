@@ -1,0 +1,6 @@
+<account>
+    <master_url>http://einstein.phys.uwm.edu/</master_url>
+    <authenticator>YOUR_ACCOUNT_AUTHENTICATOR</authenticator>
+    <project_name>Einstein@Home</project_name>
+</account>
+

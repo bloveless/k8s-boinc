@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boinc-deployment
+  namespace: boinc
+  labels:
+    app: boinc-client
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: boinc-client
+  template:
+    metadata:
+      labels:
+        app: boinc-client
+    spec:
+      containers:
+      - name: boinc-client
+        image: bloveless/boinc-client:multi-arch-0.1.0
+        command:
+          - "/usr/local/bin/entrypoint.sh"
+        args:
+          - "/usr/bin/start-boinc.sh"
+        volumeMounts:
+        - name: entrypoint
+          subPath: "entrypoint.sh"
+          mountPath: "/usr/local/bin/entrypoint.sh"
+        - name: accounts
+          mountPath: "/tmp/accounts/"
+      volumes:
+      - name: entrypoint
+        configMap:
+          name: boinc-entrypoint
+          defaultMode: 0744
+      - name: accounts
+        secret:
+          secretName: boinc-accounts

@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: boinc
+
+resources:
+  - 000-namespace.yaml
+  - 001-deployment.yaml
+
+configMapGenerator:
+  - name: boinc-entrypoint
+    files:
+      - ./config-maps/entrypoint.sh
+
+secretGenerator:
+  - name: boinc-accounts
+    files:
+      - ./accounts/account_einstein.phys.uwm.edu.xml
+      - ./accounts/account_boinc.bakerlab.org_rosetta.xml
