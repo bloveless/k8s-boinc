@@ -6,7 +6,7 @@ metadata:
   labels:
     app: boinc-client
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: boinc-client
@@ -18,6 +18,11 @@ spec:
       containers:
       - name: boinc-client
         image: bloveless/boinc-client:multi-arch-0.1.0
+        resources:
+          requests:
+            cpu: "250m"
+          limits:
+            cpu: 2
         command:
           - "/usr/local/bin/entrypoint.sh"
         args:
